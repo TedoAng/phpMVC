@@ -9,7 +9,6 @@ final class Loader
     private function __construct()
     {
         echo 'Loading';
-        var_dump($this->namespaces);
     }
 
     public static function registerAutoload()
@@ -20,7 +19,24 @@ final class Loader
 
     public static function autoload($class)
     {
-        // self::loadClass($class);
+        self::loadClass($class);
+    }
+
+    public static function loadClass($class)
+    {
+        foreach (self::$namespaces as $k => $v) {
+            if (strpos($class, $k) === 0) {
+                $f = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+                $f = substr_replace($f, $v, 0, strlen($k)).'.php';
+                $f =realpath($f);
+                if ($f && is_readable($f)) {
+                    include $f;
+                } else {
+                    throw new \Exception('File can not be included:'.$f);
+                }
+                break;
+            }
+        }
     }
 
     public static function registerNamespace($namespace, $path)
@@ -32,13 +48,29 @@ final class Loader
             }
             $_path = realpath($path);
             if($_path && is_dir($path) && is_readable($_path)) {
-                self::$namespaces[$namespace] = $path . DIRECTORY_SEPARATOR;
+                self::$namespaces[$namespace.DIRECTORY_SEPARATOR] = $path.DIRECTORY_SEPARATOR;
             }else {
+                //TODO
                 throw new \Exception('Namespace directory read error:' . $path);
             }
         } else {
             //TODO
             throw new \Exception('Invalid namespace:' . $namespace);
         }
+    }
+
+    public static function getNamespace($namespace)
+    {
+        return self::$namespaces;
+    }
+
+    public static function removeNamespace($namespace)
+    {
+        unset(self::$namespaces[$namespace]);
+    }
+
+    public static function clearNamespaces()
+    {
+        self::$namespaces = [];
     }
 }

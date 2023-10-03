@@ -9,7 +9,6 @@ class App
 
    private function __construct()
    {
-     echo dirname(__FILE__).DIRECTORY_SEPARATOR;
      \GF\Loader::registerNamespace('GF', dirname(__FILE__).DIRECTORY_SEPARATOR);
      \GF\Loader::registerAutoload();
    }
