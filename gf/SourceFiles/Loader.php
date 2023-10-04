@@ -22,6 +22,9 @@ final class Loader
         self::loadClass($class);
     }
 
+    /**
+     * Includva podadeniq class za da e dostapen v App.php
+     */
     public static function loadClass($class)
     {
         foreach (self::$namespaces as $k => $v) {
@@ -38,7 +41,9 @@ final class Loader
             }
         }
     }
-
+    /**
+     * method za registrirane na dopalnitelni namespaces
+     */
     public static function registerNamespace($namespace, $path)
     {
         $namespace = trim($namespace);
