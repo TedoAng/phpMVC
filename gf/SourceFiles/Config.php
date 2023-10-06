@@ -13,6 +13,11 @@ class Config
         
     }
 
+    public function getConfigFolder()
+    {
+        return $this->_configFolder;
+    }
+
     public function setConfigFolder($configFolder)
     {
         if (!$configFolder) {
