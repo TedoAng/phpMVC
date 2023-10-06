@@ -14,7 +14,8 @@ class FrontController
 
     public function dispatch()
     {
-        
+        $a = new \GF\Routers\DefaultRouter();
+        $a->parse();
     }
 
     /**
