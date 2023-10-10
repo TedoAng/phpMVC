@@ -13,4 +13,3 @@ if (!isset($_COOKIE['Q'])) {
 
     foreach($A as $v) echo "$v ";
 }
-

@@ -36,7 +36,7 @@ class Config
     public function __get($name): array
     {
         if (!$this->_configArray[$name]) {
-            $this->includeConfigFile($this->_configFolder . $name . '.php'); //https://nau4i.me/php/php-mvc-framework/364/mvc-framework-6-config1 11:55
+            $this->includeConfigFile($this->_configFolder . $name . '.php'); 
         }
         if (array_key_exists($name, $this->_configArray)) {
             return $this->_configArray[$name];
